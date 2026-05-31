@@ -6,42 +6,68 @@
   <title>Game Đoán Từ</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<!-- Nút 3 gạch (Hamburger Icon) -->
+
+<!-- ☰ HAMBURGER -->
 <div id="hamburger" onclick="toggleMenu()">
   <span></span>
   <span></span>
   <span></span>
 </div>
 
-<!-- Bảng Menu (Panel) -->
+<!-- 📋 SIDE MENU -->
 <div id="sideMenu" class="menu-hidden">
   <div class="menu-content">
+
     <button class="close-btn" onclick="toggleMenu()">×</button>
-    <h2>MENU</h2>
+
+    <h2>🎮 MENU</h2>
     <hr>
+<hr>
+
+<h3>📩 Feedback</h3>
+
+<button onclick="openFacebook()">📘 Facebook</button>
+<button onclick="openMessenger()">💬 Messenger</button>
+
+<hr>
+   
     <button onclick="resumeGame()">▶ Tiếp tục</button>
-    <button onclick="openSettings()">⚙ Cài đặt</button>
+
+    <p>🔊 Âm thanh: <span id="soundStatus">Bật</span></p>
+    <button onclick="toggleSound()">🔁 Bật / Tắt</button>
+
+    <p>🏆 High Score: <span id="highScore">0</span></p>
+
+    <hr>
+
     <button onclick="quitGame()">🚪 Thoát</button>
+
   </div>
 </div>
-<div id="gameOverModal" class="hidden">
-    <h2>Trò chơi kết thúc!</h2>
-    <p>Điểm của bạn: <span id="finalScore">0</span></p>
-    <button onclick="resetGame()">Chơi lại</button>
-</div>
-<div id="modalOverlay" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;"></div>
 
-<!-- Lớp phủ mờ nền khi mở menu -->
+<!-- 🌑 OVERLAY -->
 <div id="menuOverlay" class="hidden" onclick="toggleMenu()"></div>
 
+<!-- 🎮 GAME OVER -->
+<div id="gameOverModal" class="hidden">
+  <h2>Trò chơi kết thúc!</h2>
+  <p>Điểm của bạn: <span id="finalScore">0</span></p>
+  <button onclick="resetGame()">Chơi lại</button>
+</div>
+
+<div id="modalOverlay" class="hidden"></div>
+
+<!-- 🎯 GAME UI -->
 <div class="card">
   <h2 id="rule"></h2>
 
   <div class="stats">
-    <span>⏱️ <span id="time">15</span></span>
-    <span>🎯 <span id="score">0</span></span>
-  </div>
+  <span>⏱️ <span id="time">60</span>s</span>
+  <span>🎯 <span id="score">0</span></span>
+  <span>🔥 <span id="combo">0</span></span>
+</div>
 
   <div class="bar">
     <div class="bar-inner" id="timeBar"></div>
@@ -50,15 +76,22 @@
   <input type="text" id="inputWord" placeholder="Nhập từ..." />
 
   <button onclick="checkWord()">Check</button>
-  <button onclick="nextRound()">Next</button>
 
   <p id="result"></p>
+
+</div>
 </div>
 
+
+
+
+
+<!-- 📦 SCRIPT -->
+<div id="floatingText"></div>
+<div id="comboPopup" class="combo-popup hidden"></div>
 <script src="js/dictionary.js"></script>
 <script src="js/banned.js"></script>
 <script src="js/game.js"></script>
 
-
- </body>  
-</html>  
+</body>
+</html>
