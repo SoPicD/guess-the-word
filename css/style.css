@@ -1,4 +1,6 @@
-/* ================= RESET + BODY ================= */
+/* ==========================================================================
+   1. RESET + BODY (Cấu hình nền động và căn giữa màn hình)
+   ========================================================================== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -9,9 +11,9 @@ body {
   justify-content: center;
   align-items: center;
 
-  height: 100dvh; /* 🔥 FIX mobile */
+  height: 100dvh; /* 🔥 FIX lỗi hiển thị trên mobile */
   margin: 0;
-  overflow: hidden; /* 🔥 tránh layout nhảy */
+  overflow: hidden; /* Tránh layout bị nhảy */
 }
 
 @keyframes gradientBG {
@@ -20,16 +22,19 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ================= CARD ================= */
+/* ==========================================================================
+   2. KHUNG CHƠI GAME CHÍNH (CARD)
+   ========================================================================== */
 .card {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   padding: 20px;
   border-radius: 24px;
 
-  width: 90%;        /* 🔥 co giãn */
-  max-width: 400px;  /* 🔥 giới hạn */
+  width: 90%;        /* Co giãn mượt mà */
+  max-width: 400px;  /* Giới hạn chiều rộng */
 
   text-align: center;
 
@@ -42,24 +47,56 @@ body {
 .card:hover {
   transform: translateY(-5px);
 }
-/* ================= TEXT ================= */
+
+/* ==========================================================================
+   3. CÁC THÀNH PHẦN TEXT & HIỂN THỊ CHỈ SỐ (STATS)
+   ========================================================================== */
 h2 {
   color: #333;
   font-size: 28px;
   margin-bottom: 20px;
 }
 
+/* Khu vực hiển thị Thời gian, Điểm, Combo khi đang chơi */
 .stats {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Đẩy đều 3 phần tử ra 2 đầu và ở giữa */
+  align-items: center;
+  
   margin: 15px 0;
   background: #f8f9fa;
-  padding: 10px;
+  padding: 10px 15px; /* Tăng nhẹ padding hai bên cho thoáng */
   border-radius: 12px;
   font-size: 18px;
+  
+  box-sizing: border-box;
 }
 
-/* ================= INPUT ================= */
+/* Đảm bảo các chữ/icon bên trong mỗi cột thẳng hàng, không bị lệch */
+.stats > div, .stats > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* Chia đều 3 cột bằng nhau chằn chặn */
+}
+
+
+/* Ô chữ hiển thị luật chơi / câu hỏi random */
+#rule {
+  color: #111;
+  font-size: 24px;
+  font-weight: bold;
+  background: #FFFFFF;
+  padding: 10px 15px;
+  border-radius: 12px;
+  border-left: 5px solid #0088FF;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 0px rgba(185, 185, 185, 1);
+}
+
+/* ==========================================================================
+   4. Ô NHẬP LIỆU (INPUT) & NÚT BẤM (BUTTON) GỐC
+   ========================================================================== */
 input {
   width: 100%;
   padding: 14px;
@@ -69,7 +106,7 @@ input {
   border: 2px solid #eee;
   font-size: 18px;
 
-  box-sizing: border-box; /* 🔥 QUAN TRỌNG */
+  box-sizing: border-box; /* 🔥 QUAN TRỌNG: Tránh tràn viền */
 }
 
 input:focus {
@@ -87,7 +124,6 @@ input.wrong {
   background: #fdf2f2;
 }
 
-/* ================= BUTTON ================= */
 button {
   margin-top: 12px;
   padding: 12px;
@@ -105,14 +141,13 @@ button:hover {
   transform: scale(1.03);
 }
 
-/* ================= RESULT ================= */
 #result {
   margin-top: 15px;
   font-size: 18px;
   min-height: 25px;
 }
 
-/* ================= TIME BAR ================= */
+/* Thanh thời gian chạy ngược */
 .bar {
   height: 10px;
   background: #eee;
@@ -123,10 +158,13 @@ button:hover {
 
 .bar-inner {
   height: 100%;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
+  background: #28a745;
+  transition: width 0.2s ease, background 0.3s ease; 
 }
 
-/* ================= HAMBURGER ================= */
+/* ==========================================================================
+   5. MENU ĐIỀU HƯỚNG SIDEBAR (Nút Hamburger & Menu Trượt)
+   ========================================================================== */
 #hamburger {
   position: fixed;
   top: 20px;
@@ -146,13 +184,11 @@ button:hover {
   border-radius: 2px;
 }
 
-/* Ẩn hamburger khi mở menu */
 #hamburger.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* ================= SIDE MENU ================= */
 #sideMenu {
   position: fixed;
   top: 0;
@@ -169,7 +205,7 @@ button:hover {
 .menu-hidden {
   transform: translateX(-100%);
 }
-/* ================= MENU CONTENT ================= */
+
 .menu-content button {
   width: 100%;
   padding: 12px;
@@ -184,7 +220,6 @@ button:hover {
   background: #333;
 }
 
-/* CLOSE BUTTON */
 .close-btn {
   width: 40px;
   height: 40px;
@@ -198,68 +233,469 @@ button:hover {
   cursor: pointer;
 }
 
-/* ================= OVERLAY ================= */
 #menuOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.5);
   z-index: 1000;
 }
 
-/* ================= MODAL ================= */
-#gameOverModal {
+/* ==========================================================================
+   6. MÀN HÌNH CHÍNH (MAIN MENU START) - Xuất hiện khi vừa vào game
+   ========================================================================== */
+#mainMenu {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  z-index: 1300;
-  text-align: center;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  transition: all 0.4s ease;
 }
 
-/* ================= COMMON ================= */
-.hidden {
-  display: none !important;
+.menu-box {
+  width: 85%;
+  max-width: 360px;
+  background: rgba(255,255,255,.95);
+  padding: 30px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,.25);
 }
-/*combo*/
+
+.menu-logo {
+  font-size: 64px;
+  margin-bottom: 10px;
+}
+
+.menu-box h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.menu-divider {
+  height: 1px;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+.menu-stat {
+  margin: 12px 0;
+}
+
+.menu-stat span {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.menu-version {
+  color: #888;
+  font-size: 12px;
+}
+
+.menu-hide {
+  opacity: 0;
+  transform: scale(1.1);
+  filter: blur(10px);
+}
+
+/* ==========================================================================
+   7. HỘP THOẠI KẾT THÚC GAME (GAME OVER MODAL)
+   ========================================================================== */
+#modalOverlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+#gameOverModal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: 1000;
+  width: 90%;
+  max-width: 420px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng Bounce nhẹ */
+}
+
+#gameOverModal:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-card {
+  background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+  border: 3px solid #f59e0b;
+  border-radius: 24px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.2);
+  color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-crown {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  animation: crownFloat 2s ease-in-out infinite;
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #f59e0b;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
+  margin: 0 0 15px 0;
+}
+
+.modal-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+  margin: 15px 0;
+  opacity: 0.5;
+}
+
+.modal-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.modal-stat-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-stat-box.highlight {
+  background: linear-gradient(180deg, rgba(220, 38, 38, 0.2) 0%, rgba(153, 27, 27, 0.4) 100%);
+  border: 2px solid #ef4444;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 12px;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.stat-value-big {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 15px #ef4444;
+  line-height: 1;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-modal-primary {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+  transition: all 0.2s;
+}
+
+.btn-modal-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+}
+
+.btn-modal-secondary {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #475569;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-modal-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+}
+
+@keyframes crownFloat {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* ==========================================================================
+   8. HỘP THOẠI CÀI ĐẶT TINH GỌN (ĐÃ SỬA LỖI CHỮ ĐÈ NHAU)
+   ========================================================================== */
+.settings-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.settings-overlay:not(.hidden-settings) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.settings-card {
+  position: relative; /* 🔥 BẮT BUỘC phải có để nút X căn vị trí theo khung này */
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 2px solid #38bdf8;
+  border-radius: 24px;
+  padding: 24px;
+  width: 85%;
+  max-width: 360px;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+/* Sửa lỗi tiêu đề dính nút close */
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Khóa cứng font-size và bỏ margin thừa của h2 cài đặt */
+.settings-header h2 {
+  font-size: 1.4rem !important;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0 !important;
+  color: #f59e0b !important;
+  white-space: nowrap; 
+}
+
+
+
+.settings-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 16px 0;
+}
+
+.settings-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Sửa lỗi dòng âm thanh và nút bật tắt */
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+}
+
+/* Sửa triệt để lỗi chữ đè nhau ở phần text mô tả */
+.settings-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px; /* Tạo khoảng cách an toàn giữa 2 dòng chữ */
+  text-align: left;
+}
+
+.settings-label span {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+  white-space: nowrap; /* Tránh chữ Âm thanh bị vỡ dòng lung tung */
+}
+
+.settings-label small {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* Định hình lại nút bật/tắt tròn trịa, gọn gàng */
+.btn-toggle {
+  background: #0284c7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  min-width: 90px;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-toggle:active {
+  transform: scale(0.95);
+}
+
+.btn-toggle.off {
+  background: #475569;
+}
+
+.btn-settings-save {
+  width: 100%;
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+  margin-top: 5px;
+}
+
+
+/* ==========================================================================
+   9. POPUP "SẮP RA MẮT" (COMING SOON)
+   ========================================================================== */
+#comingSoonModal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 99999 !important;
+  display: none; 
+  align-items: center;
+  justify-content: center;
+}
+
+#comingSoonModal.show-popup {
+  display: flex !important;
+  animation: fadeInPopup 0.3s ease forwards;
+}
+
+.coming-content {
+  text-align: center;
+  color: #ffffff;
+  padding: 30px 20px;
+  width: 85%;
+  max-width: 320px;
+}
+
+.coming-icon {
+  font-size: 4.5rem;
+  margin-bottom: 15px;
+  animation: comingPulse 2s infinite;
+}
+
+.coming-content h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.coming-text {
+  color: #cbd5e1;
+  font-size: 1rem;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+.coming-badge {
+  background: linear-gradient(135deg, #00d2ff 0%, #0066ff 100%);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 8px 24px;
+  border-radius: 30px;
+  display: inline-block;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
+}
+
+.coming-close-hint {
+  display: block;
+  margin-top: 40px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes fadeInPopup {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes comingPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ==========================================================================
+   10. HIỆU ỨNG ĐỘNG TRONG GAME (COMBO POPUP & FLOATING TEXT)
+   ========================================================================== */
 .combo-popup {
   position: fixed;
   top: 30%;
   left: 50%;
   transform: translateX(-50%);
-
   font-size: 40px;
   font-weight: bold;
   color: #ff6b00;
-
   z-index: 2000;
-
   animation: comboShow 1s ease forwards;
 }
 
 @keyframes comboShow {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 30px) scale(0.8);
-  }
-
-  20% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1.1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -40px) scale(1);
-  }
+  0% { opacity: 0; transform: translate(-50%, 30px) scale(0.8); }
+  20% { opacity: 1; transform: translate(-50%, 0) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -40px) scale(1); }
 }
-
-
 
 #floatingText {
   position: fixed;
@@ -278,13 +714,11 @@ button:hover {
 }
 
 @keyframes floatUp {
-  from {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, -80px); }
+}
 
-  to {
-    opacity: 0;
-    transform: translate(-50%, -80px);
-  }
+/* THUỘC TÍNH ẨN CHUNG ĐƯỢC ÉP TỐI CAO */
+.hidden {
+  display: none !important;
 }
