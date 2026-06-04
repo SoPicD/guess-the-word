@@ -1,97 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Đoán Từ</title>
+  <title>Game Đoán Từ - Vua Tiếng Việt</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<!-- ☰ HAMBURGER -->
-<div id="hamburger" onclick="toggleMenu()">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-<!-- 📋 SIDE MENU -->
-<div id="sideMenu" class="menu-hidden">
-  <div class="menu-content">
-
-    <button class="close-btn" onclick="toggleMenu()">×</button>
-
-    <h2>🎮 MENU</h2>
-    <hr>
-<hr>
-
-<h3>📩 Feedback</h3>
-
-<button onclick="openFacebook()">📘 Facebook</button>
-<button onclick="openMessenger()">💬 Messenger</button>
-
-<hr>
-   
-    <button onclick="resumeGame()">▶ Tiếp tục</button>
-
-    <p>🔊 Âm thanh: <span id="soundStatus">Bật</span></p>
-    <button onclick="toggleSound()">🔁 Bật / Tắt</button>
-
-    <p>🏆 High Score: <span id="highScore">0</span></p>
-
-    <hr>
-
-    <button onclick="quitGame()">🚪 Thoát</button>
-
-  </div>
-</div>
-
-<!-- 🌑 OVERLAY -->
-<div id="menuOverlay" class="hidden" onclick="toggleMenu()"></div>
-
-<!-- 🎮 GAME OVER -->
-<div id="gameOverModal" class="hidden">
-  <h2>Trò chơi kết thúc!</h2>
-  <p>Điểm của bạn: <span id="finalScore">0</span></p>
-  <button onclick="resetGame()">Chơi lại</button>
-</div>
-
-<div id="modalOverlay" class="hidden"></div>
-
-<!-- 🎯 GAME UI -->
-<div class="card">
-  <h2 id="rule"></h2>
-
-  <div class="stats">
-  <span>⏱️ <span id="time">60</span>s</span>
-  <span>🎯 <span id="score">0</span></span>
-  <span>🔥 <span id="combo">0</span></span>
-</div>
-
-  <div class="bar">
-    <div class="bar-inner" id="timeBar"></div>
+  <div id="mainMenu">
+    <div class="menu-box">
+      <div class="menu-logo">👑</div>
+      <h1>VUA TIẾNG VIỆT</h1>
+      
+      <div class="menu-divider"></div>
+      
+      <div class="menu-stat">
+        <div>🏆 Kỷ lục</div>
+        <span id="menuHighScore">0</span>
+      </div>
+      <div class="menu-stat">
+        <div>📚 Từ điển</div>
+        <span id="wordCount">0</span>
+      </div>
+      
+      <div class="menu-divider"></div>
+      
+      <button class="btn-play" onclick="startGameFromMenu()">▶ CHƠI NGAY</button>
+      <button onclick="openComingSoon('📖', 'Hướng Dẫn')">📖 HƯỚNG DẪN</button>
+      <button onclick="showSettings()">⚙️ CÀI ĐẶT</button>
+      
+      <div class="menu-divider"></div>
+      <div class="menu-version">Phiên bản 1.0</div>
+    </div>
   </div>
 
-  <input type="text" id="inputWord" placeholder="Nhập từ..." />
+  <div id="gameScreen" class="hidden">
+    <div class="card">
+      <h2 id="rule"></h2>
+      
+      <div class="stats">
+        <div class="time-display">⏱️ <span id="time">60</span>s</div>
+        <span>🎯 <span id="score">0</span></span>
+        <span>🔥 <span id="combo">0</span></span>
+      </div>
+      
+      <div class="bar">
+        <div class="bar-inner" id="timeBar"></div>
+      </div>
+      
+      <input type="text" id="inputWord" placeholder="Nhập từ..." />
+      <button onclick="checkWord()">Check</button>
+      <p id="result"></p>
+    </div>
+    
+    <div id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
 
-  <button onclick="checkWord()">Check</button>
+  <div id="sideMenu" class="menu-hidden">
+    <div class="menu-content">
+      <button class="close-btn" onclick="toggleMenu()">×</button>
+      <h2>🎮 MENU</h2>
+      
+      <hr>
+      <h3>📩 Feedback</h3>
+      <button onclick="openFacebook()">📘 Facebook</button>
+      <button onclick="openMessenger()">💬 Messenger</button>
+      
+      <hr>
+      <button onclick="resumeGame()">▶ Tiếp tục</button>
+      <p>🔊 Âm thanh: <span id="soundStatus">Bật</span></p>
+      <button onclick="toggleSound()">Bật / Tắt</button>
+      <p>🏆 High Score: <span id="highScore">0</span></p>
+      
+      <hr>
+      <button onclick="quitGame()">Thoát</button>
+    </div>
+  </div>
 
-  <p id="result"></p>
+  <div id="menuOverlay" class="hidden" onclick="toggleMenu()"></div>
 
-</div>
-</div>
+  <div id="settingsModal" class="settings-overlay hidden-settings">
+    <div class="settings-card">
+      <div class="settings-header">
+        <h2>⚙️ CÀI ĐẶT</h2>
+      </div>
+      <div class="settings-divider"></div>
+      <div class="settings-body">
+        <div class="settings-row">
+          <div class="settings-label">
+            <span>🔊 Âm thanh</span>
+            <small>Nhạc hiệu ứng đúng sai</small>
+          </div>
+          <button id="modalSoundBtn" class="btn-toggle" onclick="toggleSoundFromModal()">Bật</button>
+        </div>
+      </div>
+      <div class="settings-divider"></div>
+      <div class="settings-footer">
+        <button class="btn-settings-save" onclick="closeSettings()">XÁC NHẬN</button>
+      </div>
+    </div>
+  </div>
 
+  <div id="comingSoonModal" class="hidden-popup" onclick="closeComingSoon()">
+    <div class="coming-content">
+      <div id="comingIcon" class="coming-icon">✨</div>
+      <h2 id="comingTitle">TÍNH NĂNG</h2>
+      <p class="coming-text">Tính năng này đang được phát triển và sẽ sớm ra mắt!</p>
+      <div class="coming-badge">COMING SOON</div>
+      <span class="coming-close-hint">Chạm bất kỳ đâu để đóng</span>
+    </div>
+  </div>
 
+  <div id="gameOverModal" class="hidden">
+    <div class="modal-card">
+      <div class="modal-crown">👑</div>
+      <h2 class="modal-title">VỊ VUA BỊ SOÁN NGÔI</h2>
+      <div class="modal-divider"></div>
+      <div class="modal-stats-container">
+        <div class="modal-stat-box">
+          <span class="stat-label">🔥 Combo </span>
+          <span id="finalCombo" class="stat-value">0</span>
+        </div>
+        <div class="modal-stat-box highlight">
+          <span class="stat-label">🏆 Điểm </span>
+          <span id="finalScore" class="stat-value-big">0</span>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-actions">
+        <button class="btn-modal-primary" onclick="resetGame()">CHƠI LẠI</button>
+        <button class="btn-modal-secondary" onclick="quitGame()">THOÁT RA</button>
+      </div>
+    </div>
+  </div>
 
+  <div id="modalOverlay" class="hidden"></div>
 
+  <div id="floatingText"></div>
+  <div id="comboPopup" class="combo-popup hidden"></div>
 
-<!-- 📦 SCRIPT -->
-<div id="floatingText"></div>
-<div id="comboPopup" class="combo-popup hidden"></div>
-<script src="js/dictionary.js"></script>
-<script src="js/banned.js"></script>
-<script src="js/game.js"></script>
+  <script src="js/dictionary.js" defer></script>
+  <script src="js/banned.js" defer></script>
+  <script src="js/game.js" defer></script>
 
 </body>
 </html>
