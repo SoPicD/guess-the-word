@@ -336,20 +336,17 @@ function quitGame() { location.reload(); }
 function showSettings() {
   const modal = $("settingsModal");
   if (!modal) return;
-  
+
   updateSoundUI();
-  
-  const volRange = $("volumeRange");
-  const volPercent = $("volumePercent");
-  if (volRange && volPercent) {
-    volRange.value = volume;
-    volPercent.innerText = Math.round(volume * 100) + "%";
-  }
-  modal.classList.remove("hidden-settings");
+
+  modal.classList.add("show-settings");
 }
 
 function closeSettings() {
-  if ($("settingsModal")) $("settingsModal").classList.add("hidden-settings");
+  const modal = $("settingsModal");
+  if (!modal) return;
+
+  modal.classList.remove("show-settings");
 }
 
 function toggleSoundFromModal() {
