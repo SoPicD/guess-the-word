@@ -11,7 +11,8 @@ body {
   justify-content: center;
   align-items: center;
 
-  height: 100dvh; /* 🔥 FIX lỗi hiển thị trên mobile */
+  min-height: 100vh;
+height: 100vh; /* 🔥 FIX lỗi hiển thị trên mobile */
   margin: 0;
   overflow: hidden; /* Tránh layout bị nhảy */
 }
@@ -464,6 +465,20 @@ button:hover {
 /* ==========================================================================
    8. HỘP THOẠI CÀI ĐẶT TINH GỌN (ĐÃ SỬA LỖI CHỮ ĐÈ NHAU & HIỂN THỊ)
    ========================================================================== */
+
+.settings-overlay {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.settings-overlay.show-settings {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+
 .settings-overlay {
   position: fixed;
   top: 0; left: 0; 
@@ -668,6 +683,7 @@ button:hover {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.4);
 }
+
 
 /* ==========================================================================
    10. HIỆU ỨNG ĐỘNG TRONG GAME (COMBO POPUP & FLOATING TEXT)
